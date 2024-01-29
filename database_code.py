@@ -52,3 +52,53 @@ with open(tsv_file_path, 'r') as tsvfile:
     tsvreader = csv.DictReader(tsvfile, delimiter='\t')
     for row in tsvreader:
         cursor.execute('INSERT INTO Samples (SAMPLE_ID, POPULATION) VALUES (?, ?)', (row['id'], row['population']))
+# Open the VCF file using cyvcf2
+vcf_reader = cyvcf2.VCF('chr1.vcf.gz')
+
+# Process VCF records
+for record in vcf_reader:
+    # Extract AN and AC from INFO field or use default value of 0 if not present
+    an = record.INFO.get('AN', 0)
+    ac = record.INFO.get('AC', 0)
+
+    # Insert data into Variants table
+    cursor.execute('''
+        INSERT INTO Variants (VAR_ID, POS, REF, ALT, AN, AC) VALUES (?, ?, ?, ?, ?, ?)
+    ''', (record.ID, record.POS, record.REF, ','.join(record.ALT) if record.ALT else None, an, ac))
+
+    # Collect genotypes for each sample and insert into SampleVariants
+    for sample_id, genotype in zip(vcf_reader.samples, record.genotypes):
+        genotype_str = '|'.join(map(str, genotype[:2]))  # Convert genotype tuple to string
+        if genotype_str in ['0|1', '1|1', '1|0']:
+            cursor.execute('''
+                INSERT INTO SampleVariants (SAMPLE_ID, VAR_ID, Genotype) VALUES (?, ?, ?)
+            ''', (sample_id, record.ID, genotype_str))
+            for row in tsvreader:
+        cursor.execute('INSERT INTO Samples (SAMPLE_ID, POPULATION) VALUES (?, ?)', (row['id'], row['population']))
+
+# Open the VCF file using cyvcf2
+vcf_reader = cyvcf2.VCF('chr1.vcf.gz')
+
+# Process VCF records
+for record in vcf_reader:
+    # Extract AN and AC from INFO field or use default value of 0 if not present
+    an = record.INFO.get('AN', 0)
+    ac = record.INFO.get('AC', 0)
+
+    # Insert data into Variants table
+    cursor.execute('''
+        INSERT INTO Variants (VAR_ID, POS, REF, ALT, AN, AC) VALUES (?, ?, ?, ?, ?, ?)
+    ''', (record.ID, record.POS, record.REF, ','.join(record.ALT) if record.ALT else None, an, ac))
+
+    # Collect genotypes for each sample and insert into SampleVariants
+    for sample_id, genotype in zip(vcf_reader.samples, record.genotypes):
+        genotype_str = '|'.join(map(str, genotype[:2]))  # Convert genotype tuple to string
+        if genotype_str in ['0|1', '1|1', '1|0']:
+            cursor.execute('''
+                INSERT INTO SampleVariants (SAMPLE_ID, VAR_ID, Genotype) VALUES (?, ?, ?)
+            ''', (sample_id, record.ID, genotype_str))
+
+# Commit and close
+conn.commit()
+conn.close()
+
