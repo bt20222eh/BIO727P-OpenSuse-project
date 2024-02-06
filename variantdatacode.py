@@ -15,3 +15,6 @@ df.columns = new_columns
 
 #give sample output to test
 print(df.head())
+
+#create tsv file
+df.to_csv('variant data.tsv', sep='\t', index=False)
