@@ -67,6 +67,33 @@ plt.ylabel('PC2')
 plt.grid(True)
 plt.show()
 
+pop_codes_df = pd.read_csv('sample_pop.csv', '\t')
+pop_codes_df.rename(columns={'id': 'SampleID', 'population': 'Population'}, inplace=True)
+super_pop_codes_df = pd.read_csv('updated_population.tsv', sep='\t')
+
+# Assuming pca_df, pop_codes_df, and super_pop_codes_df are already defined as described
+
+# First, merge pca_df with pop_codes_df to associate each PCA result with its population
+combined_df = pca_df.merge(pop_codes_df, left_on='SampleID', right_on='SampleID')
+
+# Then, rename the column 'population' in super_pop_codes_df to 'Population' for a consistent merge
+super_pop_codes_df.rename(columns={'population': 'Population'}, inplace=True)
+
+# Now, merge the combined_df with super_pop_codes_df to include the super-population
+final_df = combined_df.merge(super_pop_codes_df, on='Population')
+
+# Finally, rename the columns to match the structure of the table in your image
+final_df.rename(columns={'PC1': 'pc1', 'PC2': 'pc2', 'Population': 'population', 'Super-population': 'sub_population'}, inplace=True)
+
+# Reorder the columns to match the desired output
+final_df = final_df[['SampleID', 'population', 'sub_population', 'pc1', 'pc2']]
+
+# Display the final DataFrame
+print(final_df)
+
+# Save the DataFrame to a TSV file
+final_df.to_csv('pca.tsv', sep='\t', index=False)
+
 
 
 
