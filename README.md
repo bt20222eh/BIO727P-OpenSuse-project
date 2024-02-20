@@ -21,8 +21,7 @@ This repository contains the configuration and instructions necessary to set up 
    pip install Flask SQLAlchemy matplotlib pandas numpy seaborn
    
 **Construct the database:**
-Download DB Browser for SQLite:
-1. For macOS, download the latest version (.dmg file) from the official website and drag the application to your Applications folder.
+1. Download DB Browser for SQLite - For macOS, download the latest version (.dmg file) from the official website and drag the application to your Applications folder.
 2. Create a New Database:
 - Open DB Browser for SQLite and click "New Database". Name it "analysis.db" and save it in your Flask app's parent directory.
 3. Create the Database Schema:
