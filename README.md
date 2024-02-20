@@ -37,8 +37,8 @@ Download DB Browser for SQLite:
 6. Save the Populated Database:
 - Save the database file with the populated tables to your Flask app's parent directory.
 
-FINAL STEPS
+FINAL STEPS:
 After setting up the Python environment and constructing the database, your application is ready to run. Follow the specific instructions provided in your Flask app documentation to start the web server and access the application.
 
-TROUBLESHOOTING
+TROUBLESHOOTING:
 If you encounter any issues during setup, please ensure you have followed all steps correctly and in order. For specific errors, refer to the documentation or help forums for the tools and libraries you're using (Python, Flask, SQLAlchemy, etc.).
