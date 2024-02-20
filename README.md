@@ -1,6 +1,6 @@
 # BIO727P-OpenSuse-SOFTWARE-DEVELOPMENT-PROJECT
 HUMAN POPULATION GENETIC ANALYSIS WEB APPLICATION
-1. To use this setup, python must be installed locally. This can be done with Homebrew by passing the following command from your command line locally:
+1. To use this configuration, python must be installed locally. This can be done with Homebrew by passing the following command from your command line locally:
    /bin/bash -c "$(curl - 
    fsSLhttps://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 2. Then, install Python by running:
@@ -15,5 +15,5 @@ python3 get-pip.py
 6. Activate the virtual enviroment:
    source myenv/bin/activate
 7. Lastly, ensure all packages required for the web app configuration are installed into your python enviroment using:
-   pip install Flask SQLAlchemy matplotlib pandas numpy
+   pip install Flask SQLAlchemy matplotlib pandas numpy seaborn
    
