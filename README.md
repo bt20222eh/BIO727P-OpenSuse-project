@@ -1,8 +1,8 @@
 # BIO727P-OpenSuse-SOFTWARE-DEVELOPMENT-PROJECT
-HUMAN POPULATION GENETIC ANALYSIS WEB APPLICATION:
+**HUMAN POPULATION GENETIC ANALYSIS WEB APPLICATION:**
 This repository contains the configuration and instructions necessary to set up and run a web application for human population genetic analysis. Follow these steps carefully to ensure a smooth setup and execution of the web application on your system.
 
-PREREQUISITES
+**Prerequisites**
 1. Install Homebrew (macOS Package Manager) if it's not already installed. Open your terminal and run the following command:
    /bin/bash -c "$(curl - 
    fsSLhttps://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -20,7 +20,7 @@ PREREQUISITES
 7. Install Required Python Packages for the web application. Ensure you are in the Flask app directory and your virtual environment is activated, then run:
    pip install Flask SQLAlchemy matplotlib pandas numpy seaborn
    
-CONSTRUCT THE DATABASE:
+**Construct the database:**
 Download DB Browser for SQLite:
 1. For macOS, download the latest version (.dmg file) from the official website and drag the application to your Applications folder.
 2. Create a New Database:
@@ -34,11 +34,14 @@ Download DB Browser for SQLite:
 - For each table, go to File > Import > Table from CSV file.
 - Ensure the table name before import matches the schema name to avoid duplicate tables.
 - Select and import each .tsv file located in "main/web_app/tables" according to the specified order: SNPData, SampleData, SamplePopulation, ClusteringAnalysis, AdmixtureAnalysis. This order helps avoid foreign key constraints and mismatches.
+6. To enhance the performance of your application by optimising database queries, index the most used database tables and columns:
+- Execute the "index.sql" commands in the "Execute SQL" tab
+  *Creating indexes on frequently accessed data can significantly improve query performance, especially for large datasets.*
 6. Save the Populated Database:
 - Save the database file with the populated tables to your Flask app's parent directory.
 
-FINAL STEPS:
-After setting up the Python environment and constructing the database, your application is ready to run. Follow the specific instructions provided in your Flask app documentation to start the web server and access the application.
+**Final steps:**
+*After setting up the Python environment and constructing the database, your application is ready to run. Follow the specific instructions provided in your Flask app documentation to start the web server and access the application.*
 
-TROUBLESHOOTING:
-If you encounter any issues during setup, please ensure you have followed all steps correctly and in order. For specific errors, refer to the documentation or help forums for the tools and libraries you're using (Python, Flask, SQLAlchemy, etc.).
+**Troubleshooting:**
+*If you encounter any issues during setup, please ensure you have followed all steps correctly and in order. For specific errors, refer to the documentation or help forums for the tools and libraries you're using (Python, Flask, SQLAlchemy, etc.).*
