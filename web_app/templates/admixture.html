@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admixture Analysis</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: blue; /* Blue title */
+            text-align: center;
+        }
+        #chart-container {
+            margin: 20px auto;
+            width: 80%;
+        }
+        #population-dropdown, #superpopulation-dropdown {
+            margin-bottom: 10px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+        }
+        #chart {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Admixture Analysis Results</h1>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/aa/World_Map.jpg" alt="World Map" style="display:block; margin: 0 auto; max-width: 80%; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+    <div id="chart-container">
+        <form id="selection-form">
+            <select id="population-dropdown" name="population-dropdown" multiple>
+                <option value="" disabled>Select Population (Ctrl+Click to select multiple)</option>
+                <!-- Populated dynamically -->
+            </select>
+
+            <select id="superpopulation-dropdown" name="superpopulation-dropdown" multiple>
+                <option value="" disabled>Select Super-population (Ctrl+Click to select multiple)</option>
+                <!-- Populated dynamically -->
+            </select>
+        </form>
+        <canvas id="chart"></canvas>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var populationDropdown = document.getElementById('population-dropdown');
+            var superpopulationDropdown = document.getElementById('superpopulation-dropdown');
+            var chartCanvas = document.getElementById('chart');
+            var admixtureChart = new Chart(chartCanvas, {
+                type: 'bar',
+                data: {
+                    labels: [],
+                    datasets: []
+                },
+                options: {
+                    scales: {
+                        x: {
+                            stacked: true
+                        },
+                        y: {
+                            stacked: true,
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            function handleDropdownChange() {
+                if (populationDropdown.selectedOptions.length > 0) {
+                    superpopulationDropdown.disabled = true;
+                } else {
+                    superpopulationDropdown.disabled = false;
+                }
+
+                if (superpopulationDropdown.selectedOptions.length > 0) {
+                    populationDropdown.disabled = true;
+                } else {
+                    populationDropdown.disabled = false;
+                }
+            }
+
+            populationDropdown.addEventListener('change', handleDropdownChange);
+            superpopulationDropdown.addEventListener('change', handleDropdownChange);
+
+            var populations = ["SIB", "GBR", "FIN", "CHS", "PUR", "CDX", "CLM", "IBS", "PEL", "PJL", "KHV", "ACB", "GWD", "ESN", "BEB", "MSL", "STU", "ITU", "CEU", "YRI", "CHB", "JPT", "LWK", "ASW", "MXL", "TSI", "GIH"];
+            var superpopulations = ["EAS", "EUR", "AMR", "AFR", "SAS"];
+
+            populations.forEach(function(population) {
+                var option = document.createElement('option'); 
+                option.value = population;
+                option.textContent = population;
+                populationDropdown.appendChild(option);
+            });
+
+            superpopulations.forEach(function(superpopulation) {
+                var option = document.createElement('option');
+                option.value = superpopulation;
+                option.textContent = superpopulation;
+                superpopulationDropdown.appendChild(option);
+            });
+
+            function fetchData() {
+                var selectedPopulations = Array.from(populationDropdown.selectedOptions).map(option => option.value);
+                var selectedSuperpopulations = Array.from(superpopulationDropdown.selectedOptions).map(option => option.value);
+
+                // Adjust this to your server's endpoint and expected request format
+                fetch('/fetch_admixture_data', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        populations: selectedPopulations,
+                        superpopulations: selectedSuperpopulations
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    admixtureChart.data.labels = data.labels;
+                    admixtureChart.data.datasets = data.datasets;
+                    admixtureChart.update();
+                })
+                .catch(error => console.error('Error:', error));
+            }
+
+            populationDropdown.addEventListener('change', fetchData);
+            superpopulationDropdown.addEventListener('change', fetchData);
+        });
+    </script>     
+</body>         
+</html>
+

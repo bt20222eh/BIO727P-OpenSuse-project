@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to the OpenSuse Human Population Genetics Web 
+Application</title>
+    <link rel="stylesheet" href="{{ url_for('static', 
+filename='style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        p {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.5;
+            text-align: center;
+        }
+        img {
+            display: block;
+            margin: 20px auto;
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+        }
+        nav ul li {
+            display: inline-block;
+            margin: 0 10px;
+        }
+        nav ul li a {
+            display: inline-block;
+            padding: 10px 20px;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .red-button {
+            background-color: #ff5555; /* Red color */
+        }
+        .red-button:hover {
+            background-color: #cc0000; /* Darker red color on hover */
+        }
+        .blue-button {
+            background-color: #55aaff; /* Blue color */
+        }
+        .blue-button:hover {
+            background-color: #0077cc; /* Darker blue color on hover */
+        }
+        .green-button {
+            background-color: #55cc55; /* Green color */
+        }
+        .green-button:hover {
+            background-color: #007700; /* Darker green color on hover */
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to the OpenSuse Human Population Genetics Web 
+Application</h1>
+    <img 
+src="https://technewslit.com/sciencebusiness/wp-content/uploads/2017/12/PopulationGenetics_NHGRI.jpg" 
+alt="Population Genetics Visualization">
+    <p>This is a platform where you can perform population genetic 
+structure analysis on the integrated Eurasia+1000 Genomes project data of 
+chromosome 1 for almost 4000 individuals. This portal allows you to 
+understand how Eurasian samples relate to other human populations in their 
+genetics by means of population structure analysis with clustering, 
+admixture analysis as well as comparing genotype and allele frequencies in 
+genomic regions, genes, or SNPs of interest. Happy Researching!</p>
+    <p>Please click on an analysis type below to start.</p>
+    <nav>
+        <ul>
+            <li><a href="/clustering" class="red-button">Clustering 
+Analysis</a></li>
+            <li><a href="/admixture" class="blue-button">Admixture 
+Analysis</a></li>
+            <li><a href="/data_retrieval" class="green-button">Data 
+Retrieval</a></li>
+        </ul>
+    </nav>
+</body>
+</html>
+

@@ -1,0 +1,31 @@
+body {
+    background-color: #f0f0f0; /* Light grey background */
+    color: #333; /* Dark grey text */
+}
+h1 {
+    color: #007bff; /* Bootstrap primary blue */
+}
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+nav ul li {
+    display: inline-block;
+    margin-right: 20px;
+}
+nav ul li a {
+    text-decoration: none;
+    color: #007bff; /* Bootstrap primary blue */
+}
+
+#loadingBarContainer {
+    width: 100%;
+    background-color: #ddd;
+}
+
+#loadingBar {
+    height: 30px;
+    width: 0%;
+    background-color: #4CAF50;
+    transition: width 0.5s ease-in-out; /* Smooth transition for width changes */
+}

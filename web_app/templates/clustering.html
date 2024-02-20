@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Clustering Analysis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa; /* Light grey background */
+            color: #333; /* Dark grey text */
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            color: red; /* Red title */
+            text-align: center;
+        }
+        form {
+            margin: 20px auto;
+            text-align: center;
+        }
+        label {
+            font-weight: bold;
+        }
+        .select_button {
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            margin: 10px;
+            background-color: red; /* Red buttons */
+            color: #fff;
+            cursor: pointer;
+        }
+        .select_button:hover {
+            background-color: darkred; /* Darker red on hover */
+        }
+        #chart-container {
+            width: 80%;
+            margin: 20px auto;
+        }
+        img.pca-plot {
+            width: 100%; /* Full width of the container */
+            height: auto; /* Keep the aspect ratio */
+            border: 1px solid #ccc; /* Optional border */
+        }
+    </style>
+</head>
+<body>
+    <h1>Clustering Analysis Results</h1>
+
+    <!-- Form for population and superpopulation selection -->
+    <form id="populationForm">
+        <label for="populationSelect">Choose population(s):</label>
+        <select id="populationSelect" name="population" multiple class="select_button" onchange="toggleDropdowns()">
+            <!-- Options for populations will be dynamically populated or hard-coded here -->
+            <option value="SIB">SIB</option>
+            <option value="GBR">GBR</option>
+            <option value="FIN">FIN</option>
+            <option value="CHS">CHS</option>
+            <option value="PUR">PUR</option>
+            <option value="CDX">CDX</option>
+            <option value="CLM">CLM</option>
+            <option value="PEL">PEL</option>
+            <option value="IBS">IBS</option>
+            <option value="PJL">PJL</option>
+            <option value="BEB">BEB</option>
+            <option value="STU">STU</option>
+            <option value="ITU">ITU</option>
+            <option value="CEU">CEU</option>
+            <option value="YRI">YRI</option>
+            <option value="LWK">LWK</option>
+            <option value="GWD">GWD</option>
+            <option value="MSL">MSL</option>
+            <option value="ESN">ESN</option>
+            <option value="ASW">ASW</option>
+            <option value="ACB">ACB</option>
+            <option value="KHV">KHV</option>
+            <option value="CHB">CHB</option>
+            <option value="JPT">JPT</option>
+            <option value="CHS">CHS</option>
+            <option value="CDX">CDX</option>
+            <option value="KHV">KHV</option>
+            <option value="MXL">MXL</option>
+            <option value="TSI">TSI</option>
+            <option value="GIH">GIH</option>
+        </select>
+
+        <label for="superpopulationSelect">Choose superpopulation(s):</label>
+        <select id="superpopulationSelect" name="superpopulation" multiple class="select_button" onchange="toggleDropdowns()">
+            <!-- Options for superpopulations will be dynamically populated or hard-coded here -->
+            <option value="EAS">EAS</option>
+            <option value="EUR">EUR</option>
+            <option value="AMR">AMR</option>
+            <option value="SAS">SAS</option>
+            <option value="AFR">AFR</option>
+        </select>
+        
+        <button type="button" onclick="fetchData()" class="select_button">Analyze</button>
+    </form>
+
+    <!-- Div for the clustering chart -->
+    <div id="chart-container">
+        <img id="pcaPlot" src="" alt="PCA Plot" class="pca-plot">
+    </div>
+
+    <script>
+        function toggleDropdowns() {
+            var populationSelect = document.getElementById('populationSelect');
+            var superpopulationSelect = document.getElementById('superpopulationSelect');
+            
+            // Check if any options are selected in either dropdown
+            var populationSelected = Array.from(populationSelect.selectedOptions).length > 0;
+            var superpopulationSelected = Array.from(superpopulationSelect.selectedOptions).length > 0;
+            
+            // Disable the other dropdown based on selection
+            if (populationSelected) {
+                superpopulationSelect.disabled = true;
+            } else {
+                superpopulationSelect.disabled = false;
+            }
+            
+            if (superpopulationSelected) {
+                populationSelect.disabled = true;
+            } else {
+                populationSelect.disabled = false;
+            }
+        }
+
+        function fetchData() {
+            var populationSelect = document.getElementById('populationSelect');
+            var superpopulationSelect = document.getElementById('superpopulationSelect');
+            var populations = Array.from(populationSelect.selectedOptions).map(option => option.value);
+            var superpopulations = Array.from(superpopulationSelect.selectedOptions).map(option => option.value);
+
+            var queryParams = new URLSearchParams({
+                populations: populations.join(','),
+                superpopulations: superpopulations.join(',')
+            });
+
+            fetch('/pca?' + queryParams.toString())
+                .then(response => response.json())
+                .then(data => {
+                    var pcaPlot = document.getElementById('pcaPlot');
+                    pcaPlot.src = data.image; // Assuming 'data.image' is the key containing the base64 image string
+                })
+                .catch(error => {
+                    console.error('Error fetching the PCA plot:', error);
+                });
+        }
+    </script>
+</body>
+</html>
+
