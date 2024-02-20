@@ -1,3 +1,4 @@
 # commands for filtering and producing the tsv file 
  bcftools view -e 'GT == "./." || ALT == "." || REF == "." || AN == "." || AC == "."' chr1.vcf.gz -o filtered_chr1.vcf.gz
  bcftools query -f '[%SAMPLE\t%ID\t%POS\t%REF\t%ALT\t%INFO/AN\t%INFO/AC\t%GT\n]' filtered_chr1.vcf.gz | awk -F"\t" 'BEGIN {OFS="\t"} {split($2,a,";"); $2=a[1]; print}' > output.tsv
+# this output.tsv file is over GB large, this is what was used to construct all the individual tsv files to import into the database tables
