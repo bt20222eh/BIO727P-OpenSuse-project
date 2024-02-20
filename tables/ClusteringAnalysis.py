@@ -3,7 +3,7 @@ from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
 import matplotlib.pyplot as plt
 
-# Load your data
+# Load the cleaned data obtained from BCFTOOLs (removal of all data containing any missing fields )
 data = pd.read_csv('output.tsv', sep='\t', header=0)
 
 # Drop unnecessary columns
@@ -23,19 +23,19 @@ scaler = StandardScaler()
 pca_input_scaled = scaler.fit_transform(pca_input)
 
 # Perform PCA
-pca = PCA(n_components=2)  # Adjust n_components based on your needs
+pca = PCA(n_components=2)  # Adjust n_components based on your needs , here we use 2 componenets as they captue the most variance 
 pca_result = pca.fit_transform(pca_input_scaled)
 
-# Convert PCA result into a DataFrame for easier handling
+# Convert PCA result into a DataFrame for easier handling and retrieval 
 pca_df = pd.DataFrame(data=pca_result, columns=['PC1', 'PC2'])
 
 print(pca_df)
 pca_df['SampleID'] = pop_codes_df['SampleID'].values[:len(pca_df)]
 
-# Merge PCA results with population codes using the newly added 'SampleID'
+# Merge PCA results with population codes using the newly added 'SampleID' - easier for SQL query upon user requests 
 pca_pop_df = pca_df.merge(pop_codes_df, on='SampleID')
 
-# Define a list of 27 distinct colors
+# Define a list of 27 distinct colors - so that each population shows up as as different colour on the PCA plot for easier analysis 
 colors = [
     '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF',
     '#00FFFF', '#800000', '#008000', '#000080', '#FFA500',
@@ -45,7 +45,7 @@ colors = [
     '#1E90FF', '#FFC0CB'
 ]
 
-# Now let's plot the PCA results color-coded by population
+# Plot the PCA results color-coded by population
 fig, ax = plt.subplots(figsize=(12, 10))
 
 groups = pca_pop_df.groupby('Population')
@@ -62,26 +62,9 @@ plt.tight_layout() # Adjust the layout to make room for the legend
 
 plt.show()
 
-super_pop_codes_df = pd.read_csv('updated_population.tsv', sep='\t')
-super_pop_codes_df
+# now to store the dataframe in the databse with only the ccrrect coloumns neccessary to reduce data redundancy 
+pca_df = pca_df[['SampleID', 'PC1', 'PC2']]
+# save the pca_df as a tsv to easily put in the database as a table 
+pca_df.to_csv('pca_modified.tsv', sep='\t', index=False)
 
-# First, merge pca_df with pop_codes_df to associate each PCA result with its population
-combined_df = pca_df.merge(pop_codes_df, left_on='SampleID', right_on='SampleID')
 
-# Then, rename the column 'population' in super_pop_codes_df to 'Population' for a consistent merge
-super_pop_codes_df.rename(columns={'population': 'Population'}, inplace=True)
-
-# Now, merge the combined_df with super_pop_codes_df to include the super-population
-final_df = combined_df.merge(super_pop_codes_df, on='Population')
-
-# Finally, rename the columns to match the structure of the table in your image
-final_df.rename(columns={'PC1': 'pc1', 'PC2': 'pc2', 'Population': 'population', 'Super-population': 'sub_population'}, inplace=True)
-
-# Reorder the columns to match the desired output
-final_df = final_df[['SampleID', 'population', 'sub_population', 'pc1', 'pc2']]
-
-# Display the final DataFrame
-print(final_df)
-
-# Save the DataFrame to a TSV file
-final_df.to_csv('pca.tsv', sep='\t', index=False)
