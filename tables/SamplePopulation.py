@@ -1,4 +1,10 @@
-def calculate_genotype_frequencies(input_file):
+def calculate_genotype_frequencies(input_file): 
+    """ this function calculates the genotype frequencies from SNP data, and makes sure it 
+    counts the genotype from all samples and ensures that it collects them in both / and | format
+    Args: input_file str : the path to the input tsv file containing SNP data 
+    Returns : 
+    dict : A dictionary mapping each sample
+    """
     genotype_counts = {}
     sample_counts = {}
 
@@ -12,7 +18,7 @@ def calculate_genotype_frequencies(input_file):
             if sample_id not in genotype_counts:
                 genotype_counts[sample_id] = {'00': 0, '01': 0, '11': 0}
                 sample_counts[sample_id] = 0
-
+# count the frequency for the three different genotypes taking to account SIB and all the other populations. 
             if '/' in genotype:
                 if genotype == '0/0':
                     genotype_counts[sample_id]['00'] += 1
@@ -30,7 +36,7 @@ def calculate_genotype_frequencies(input_file):
                     genotype_counts[sample_id]['11'] += 1
 
             sample_counts[sample_id] += 1
-
+# calculate the frequencies for each genotype per sample. 
     genotype_frequencies = {}
     for sample_id, counts in genotype_counts.items():
         total_samples = sample_counts[sample_id]
@@ -42,7 +48,12 @@ def calculate_genotype_frequencies(input_file):
 
     return genotype_frequencies
 
+# Function to write the genotype frequencies to a TSV file 
 def write_genotype_frequencies(genotype_frequencies, output_file):
+    """ Writes the calcualted genotype frequencies to an output TSV file.
+    Args :
+    genotype_frequencies ( dict ) :" A dictionary of genotype frequencies by sample ID
+    output_file ( str) : The path to the output TSV file . """
     with open(output_file, 'w') as file:
         file.write("SampleID\tGTFreq_00\tGTFreq_01\tGTFreq_11\n")
         for sample_id, frequencies in genotype_frequencies.items():
@@ -63,6 +74,15 @@ print(f"Genotype frequencies have been written to {output_file}.")
 
 # Function to calculate allele frequencies from genotype frequencies
 def calculate_allele_frequencies(gt_freqs):
+    """
+    Calculates the frequencies of reference and alternate alleles based on genotype frequencies.
+
+    Args:
+    genotype_frequencies (dict): A dictionary of genotype frequencies by sample ID.
+
+    Returns:
+    dict: A dictionary mapping each sample ID to its allele frequencies.
+    """
     allele_freqs = {}
     for sample_id, frequencies in gt_freqs.items():
         ref_freq = frequencies['GTFreq_00'] + (0.5 * frequencies['GTFreq_01'])
@@ -85,7 +105,8 @@ with open(genotype_frequencies_file, 'r') as file:
 
 # Calculate allele frequencies
 allele_frequencies = calculate_allele_frequencies(genotype_frequencies)
-
+# calculate genotype frequencies 
+genotype_frequencies = calculate_genotype_frequencies(input_file)
 # Write combined data to a new file
 combined_file = "combined_frequencies.tsv"
 with open(combined_file, 'w') as file:
@@ -97,4 +118,14 @@ with open(combined_file, 'w') as file:
         allele_freqs = allele_frequencies[sample_id]
       file.write(f"{sample_id}\t{gt_frequencies['GTFreq_00']}\t{gt_frequencies['GTFreq_01']}\t{gt_frequencies['GTFreq_11']}\t{allele_freqs['REF_Freq']}\t{allele_freqs['ALT_Freq']}\n")
 
+# All the files required for the functions to work 
+input_file = ('output.tsv')
+genotype_freq_file = ('updated_population.tsv')
+combined_freq_file = ('combined_frequencies.tsv')
 print(f"Combined data has been written to {combined_file}.")
+
+
+
+
+
+
