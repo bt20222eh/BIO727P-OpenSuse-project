@@ -37,7 +37,7 @@ This repository contains the configuration and instructions necessary to set up 
 6. To enhance the performance of your application by optimising database queries, index the most used database tables and columns:
 - Execute the "index.sql" commands in the "Execute SQL" tab
   *Creating indexes on frequently accessed data can significantly improve query performance, especially for large datasets.*
-6. Save the Populated Database:
+7. Save the Populated Database:
 - Save the database file with the populated tables to your Flask app's parent directory.
 
 **Final steps:**
