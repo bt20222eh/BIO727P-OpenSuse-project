@@ -2,7 +2,7 @@
 **HUMAN POPULATION GENETIC ANALYSIS WEB APPLICATION:**
 This repository contains the configuration and instructions necessary to set up and run a web application for human population genetic analysis. Follow these steps carefully to ensure a smooth setup and execution of the web application on your system.
 
-**Prerequisites**
+**Prerequisites:**
 1. Install Homebrew (macOS Package Manager) if it's not already installed. Open your terminal and run the following command:
    /bin/bash -c "$(curl - 
    fsSLhttps://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
