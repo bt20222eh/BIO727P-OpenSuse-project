@@ -1,0 +1,8 @@
+CREATE INDEX idx_admixture_sample ON AdmixtureAnalysis(SampleID)
+CREATE INDEX idx_clustering_sample ON ClusteringAnalysis(SampleID)
+CREATE INDEX idx_genes ON SNPData(Genes)
+CREATE INDEX idx_population ON SamplePopulation(Population)
+CREATE INDEX idx_sample_id ON SampleData(SampleID)
+CREATE INDEX idx_sample_snp ON SampleData(SNP_ID)
+CREATE INDEX idx_snp_id ON SNPData(SNP_ID)
+CREATE INDEX idx_super_population ON SamplePopulation(SuperPopulation)
