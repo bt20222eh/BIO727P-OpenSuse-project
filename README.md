@@ -16,7 +16,7 @@ This repository contains the configuration and instructions necessary to set up 
    python3 -m pip install virtualenv
 5. Create a virtual enviroment in your main flask app directory:
    python3 -m venv myenv
-6.Activate the Virtual Environment with the command:
+6. Activate the Virtual Environment with the command:
    source myenv/bin/activate
 7. Install Required Python Packages for the web application. Ensure you are in the Flask app directory and your virtual environment is activated, then run:
    pip install Flask SQLAlchemy matplotlib pandas numpy seaborn
