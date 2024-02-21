@@ -1,4 +1,4 @@
-# BIO727P-OpenSuse-SOFTWARE-DEVELOPMENT-PROJECT
+# QMUL MSc BIOINFORMATICS - Team OpenSuse - SOFTWARE DEVELOPMENT PROJECT
 ## HUMAN POPULATION GENETIC ANALYSIS WEB APPLICATION
 
 This repository contains the configuration and instructions necessary to set up and run a web application for human population genetic analysis. Follow these steps carefully to ensure a smooth setup and execution of the web application on your system.
