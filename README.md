@@ -5,21 +5,21 @@ This repository contains the configuration and instructions necessary to set up 
 
 **Prerequisites:**
 1. Install Homebrew (macOS Package Manager) if it's not already installed. Open your terminal and run the following command:
-   /bin/bash -c "$(curl - 
+  ''' /bin/bash -c "$(curl - '''
    fsSLhttps://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 2. Install Python using Homebrew by executing the command below in your terminal:
-   brew install python
+   '''brew install python'''
 3. Download and Install pip (Python Package Installer) by running these commands in your terminal:
-   curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-   python3 get-pip.py
+   '''curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+   python3 get-pip.py'''
 4. Install virtualenv (Virtual Environment) package to create isolated Python environments:
-   python3 -m pip install virtualenv
+   '''python3 -m pip install virtualenv'''
 5. Create a virtual enviroment in your main flask app directory:
-   python3 -m venv myenv
+   '''python3 -m venv myenv'''
 6. Activate the Virtual Environment with the command:
-   source myenv/bin/activate
+   '''source myenv/bin/activate'''
 7. Install Required Python Packages for the web application. Ensure you are in the Flask app directory and your virtual environment is activated, then run:
-   pip install Flask SQLAlchemy matplotlib pandas numpy seaborn
+   '''pip install Flask SQLAlchemy matplotlib pandas numpy seaborn'''
    
 **Construct the database:**
 1. Download DB Browser for SQLite - For macOS, download the latest version (.dmg file) from the official website and drag the application to your Applications folder.
@@ -42,7 +42,7 @@ This repository contains the configuration and instructions necessary to set up 
 
 **Final steps:**
 *After setting up the Python environment and constructing the database, your application is ready to run. Follow the specific instructions provided in your Flask app documentation to start the web server and access the application*
-- execute "export FLASK_APP=web_app/app" from your flask parent directory
+- execute '''export FLASK_APP=web_app/app''' from your flask parent directory
 
 **Troubleshooting:**
 *If you encounter any issues during setup, please ensure you have followed all steps correctly and in order. For specific errors, refer to the documentation or help forums for the tools and libraries you're using (Python, Flask, SQLAlchemy, etc.).*
