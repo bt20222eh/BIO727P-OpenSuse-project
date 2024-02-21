@@ -9,8 +9,8 @@ This repository contains the configuration and instructions necessary to set up 
 2. Install Python using Homebrew by executing the command below in your terminal:
    ```brew install python```
 3. Download and Install pip (Python Package Installer) by running these commands in your terminal:
-   ```curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-   python3 get-pip.py```
+   ```curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py```
+   ```python3 get-pip.py```
 4. Install virtualenv (Virtual Environment) package to create isolated Python environments:
    ```python3 -m pip install virtualenv```
 5. Create a virtual enviroment in your main flask app directory:
