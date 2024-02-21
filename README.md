@@ -1,5 +1,5 @@
 # BIO727P-OpenSuse-SOFTWARE-DEVELOPMENT-PROJECT
-**HUMAN POPULATION GENETIC ANALYSIS WEB APPLICATION:**
+## HUMAN POPULATION GENETIC ANALYSIS WEB APPLICATION:
 
 This repository contains the configuration and instructions necessary to set up and run a web application for human population genetic analysis. Follow these steps carefully to ensure a smooth setup and execution of the web application on your system.
 
@@ -20,7 +20,7 @@ This repository contains the configuration and instructions necessary to set up 
 7. Install Required Python Packages for the web application. Ensure you are in the Flask app directory and your virtual environment is activated, then run:
    ```pip install Flask SQLAlchemy matplotlib pandas numpy seaborn```
    
-# Construct the database:
+## Construct the database:
 1. Download DB Browser for SQLite - For macOS, download the latest version (.dmg file) from the official website and drag the application to your Applications folder.
 2. Create a New Database:
 - Open DB Browser for SQLite and click "New Database". Name it "analysis.db" and save it in your Flask app's parent directory.
@@ -39,9 +39,9 @@ This repository contains the configuration and instructions necessary to set up 
 7. Save the Populated Database:
 - Save the database file with the populated tables to your Flask app's parent directory.
 
-# Final steps:
+## Final steps:
 *After setting up the Python environment and constructing the database, your application is ready to run. Follow the specific instructions provided in your Flask app documentation to start the web server and access the application*
 - execute ```export FLASK_APP=web_app/app``` from your flask parent directory
 
-# Troubleshooting:
+## Troubleshooting:
 *If you encounter any issues during setup, please ensure you have followed all steps correctly and in order. For specific errors, refer to the documentation or help forums for the tools and libraries you're using (Python, Flask, SQLAlchemy, etc.).*
