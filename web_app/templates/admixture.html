@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admixture Analysis</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: blue;
+            text-align: center;
+        }
+        #chart-container {
+            margin: 20px auto;
+            width: 80%;
+        }
+        select {
+            margin-bottom: 10px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+        }
+        #chart {
+            width: 100%;
+            height: auto;
+        }
+         button {
+            padding: 10px 15px;
+            background-color: blue;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: navy;
+        } 
+    </style>
+</head>
+<body>
+    <h1>Admixture Analysis Results</h1>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/aa/World_Map.jpg" 
+alt="World Map" style="display:block; margin: 0 auto; max-width: 80%; 
+border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+    <div id="chart-container">
+        <select id="population-dropdown" multiple>
+            <!-- Populate with your options -->
+            <option value="SIB">SIB</option>
+            <option value="GBR">GBR</option>
+            <option value="FIN">FIN</option>
+            <option value="CHS">CHS</option>
+            <option value="PUR">PUR</option>
+            <option value="CDX">CDX</option>
+            <option value="CLM">CLM</option>
+            <option value="PEL">PEL</option>
+            <option value="IBS">IBS</option>
+            <option value="PJL">PJL</option>
+            <option value="BEB">BEB</option>
+            <option value="STU">STU</option>
+            <option value="ITU">ITU</option>
+            <option value="CEU">CEU</option>
+            <option value="YRI">YRI</option>
+            <option value="LWK">LWK</option>
+            <option value="GWD">GWD</option>
+            <option value="MSL">MSL</option>
+            <option value="ESN">ESN</option>
+            <option value="ASW">ASW</option>
+            <option value="ACB">ACB</option>
+            <option value="KHV">KHV</option>
+            <option value="CHB">CHB</option>
+            <option value="JPT">JPT</option>
+            <option value="CHS">CHS</option>
+            <option value="CDX">CDX</option>
+            <option value="KHV">KHV</option>
+            <option value="MXL">MXL</option>
+            <option value="TSI">TSI</option>
+            <option value="GIH">GIH</option>
+            <!-- Add more population options here -->
+        </select>
+
+        <select id="superpopulation-dropdown" multiple>
+            <!-- Populate with your options -->
+            <option value="EAS">EAS</option>
+            <option value="EUR">EUR</option>
+            <option value="AMR">AMR</option>
+            <option value="SAS">SAS</option>
+            <option value="AFR">AFR</option>
+            <!-- Add more superpopulation options here -->
+        </select>
+
+        <button id="fetch-data">Analyse</button>
+        <canvas id="chart"></canvas>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var populationDropdown = document.getElementById('population-dropdown');
+            var superpopulationDropdown = document.getElementById('superpopulation-dropdown');
+            var fetchDataButton = document.getElementById('fetch-data');
+            var chartCanvas = document.getElementById('chart');
+
+            var admixtureChart = new Chart(chartCanvas, {
+                type: 'bar',
+                data: {
+                    labels: [],
+                    datasets: []
+                },
+                options: {
+                    scales: {
+                        x: {
+                            stacked: true
+                        },
+                        y: {
+                            stacked: true,
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            function updateDropdownState() {
+                superpopulationDropdown.disabled = populationDropdown.selectedOptions.length > 0;
+                populationDropdown.disabled = superpopulationDropdown.selectedOptions.length > 0;
+            }
+
+            populationDropdown.addEventListener('change', updateDropdownState);
+            superpopulationDropdown.addEventListener('change', updateDropdownState);
+
+            fetchDataButton.addEventListener('click', function(event) {
+                event.preventDefault();
+                fetchData();
+            });
+
+            function fetchData() {
+                var selectedPopulations = Array.from(populationDropdown.selectedOptions).map(option => option.value);
+                var selectedSuperpopulations = Array.from(superpopulationDropdown.selectedOptions).map(option => option.value);
+
+                fetch('/fetch_admixture_data', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        populations: selectedPopulations,
+                        superpopulations: selectedSuperpopulations
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    admixtureChart.data.labels = data.labels;
+                    admixtureChart.data.datasets = data.datasets;
+                    admixtureChart.update();
+                })
+                .catch(error => console.error('Error:', error));
+            }
+
+            // Initial call to ensure correct initial state
+            updateDropdownState();
+        });
+    </script>     
+</body>
+</html>
+
