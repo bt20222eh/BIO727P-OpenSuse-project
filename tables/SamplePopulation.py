@@ -20,19 +20,18 @@ def calculate_genotype_frequencies(input_file):
                 sample_counts[sample_id] = 0
 # count the frequency for the three different genotypes taking to account SIB and all the other populations. 
             if '/' in genotype:
-                if genotype == '0/0':
+                if genotype in ['0/0', '0|0']:
                     genotype_counts[sample_id]['00'] += 1
-                elif genotype == '0/1':
+                elif genotype in ['0/1', '1/0', '0|1', '1|0']:
                     genotype_counts[sample_id]['01'] += 1
-                elif genotype == '1/1':
+                elif genotype in ['1/1', '1|1']:
                     genotype_counts[sample_id]['11'] += 1
             elif '|' in genotype:
-                alleles = genotype.split('|')
-                if alleles[0] == '0' and alleles[1] == '0':
+                if genotype in ['0/0', '0|0']:
                     genotype_counts[sample_id]['00'] += 1
-                elif alleles[0] == '0' and alleles[1] == '1':
+                elif genotype in ['0/1', '1/0', '0|1', '1|0']:
                     genotype_counts[sample_id]['01'] += 1
-                elif alleles[0] == '1' and alleles[1] == '1':
+                elif genotype in ['1/1', '1|1']:
                     genotype_counts[sample_id]['11'] += 1
 
             sample_counts[sample_id] += 1
