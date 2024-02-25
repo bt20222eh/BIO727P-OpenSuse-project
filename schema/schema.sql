@@ -13,7 +13,9 @@ CREATE TABLE SamplePopulation (
     GTFreq_01 FLOAT,
     GTFreq_11 FLOAT,
     REF_Freq FLOAT,
-    ALT_Freq FLOAT
+    ALT_Freq FLOAT,
+    avgALT_Freq FLOAT,
+    avgREF_Freq FLOAT
 );
 
 CREATE TABLE ClusteringAnalysis (
