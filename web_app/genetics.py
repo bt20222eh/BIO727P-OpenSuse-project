@@ -8,7 +8,6 @@ def calculate_fst(avg_freqs_pop1, avg_freqs_pop2):
     p1_avg_ref, p1_avg_alt = avg_freqs_pop1
     p2_avg_ref, p2_avg_alt = avg_freqs_pop2
 
-    # The rest of the calculation remains the same as in your existing calculate_fst function
     # Calculate average allele frequencies across populations for both alleles
     p_avg_ref = (p1_avg_ref + p2_avg_ref) / 2
     p_avg_alt = (p1_avg_alt + p2_avg_alt) / 2
