@@ -123,6 +123,30 @@ genotype_freq_file = ('updated_population.tsv')
 combined_freq_file = ('combined_frequencies.tsv')
 print(f"Combined data has been written to {combined_file}.")
 
+import pandas as pd
+
+# load the relevant TSV files
+combined_freq_file_path = 'combined_frequencies.tsv'
+sample_pop_file_path = 'sample_pop.tsv'
+population_superpopulation_file_path = 'population_superpopulation.tsv'
+
+# read the files
+combined_freq_df = pd.read_csv(combined_freq_file_path, sep='\t')
+sample_pop_df = pd.read_csv(sample_pop_file_path, sep='\t')
+popultation_superpopulation_df = pd.read_csv(population_superpopulation_file_path, sep='\t')
+
+# display the first few rows of each DataFrame to understand their structure
+combined_freq_df.head(), sample_pop_df.head(), population_superpopulation_df.head()
+# reorder the columns 
+final_df_reordered = final_df[['id', 'Population', 'Super_population', 'GTFreq_00', 'GTFreq_01', 'GTFreq_11', 'REF_Freq', 'ALT_Freq', 'REF_Freq_avg', 'ALT_Freq_avg']]
+
+# save the reordered DataFrame to a new TSV file
+output_file_path_reordered = 'SamplePopulation.tsv'
+final_df_reordered.to_csv(output_file_path_reordered, sep='\t', index=False)
+
+# provide the path for download
+output_file_path_reordered
+
 
 
 
