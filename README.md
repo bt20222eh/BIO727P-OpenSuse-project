@@ -18,7 +18,7 @@ This repository contains the configuration and instructions necessary to set up 
 6. Activate the Virtual Environment with the command:
    ```source myenv/bin/activate```
 7. Install Required Python Packages for the web application. Ensure you are in the Flask app directory and your virtual environment is activated, then run:
-   ```pip install Flask SQLAlchemy matplotlib pandas numpy seaborn sklearn```
+   ```pip install Flask SQLAlchemy matplotlib pandas numpy seaborn sklearn json```
    
 ## Construct the database:
 1. Download DB Browser for SQLite - For macOS, download the latest version (.dmg file) from the official website and drag the application to your Applications folder.
