@@ -9,7 +9,7 @@ unzip plink_linux_x86_64_20201019.zip
 # Move the PLINK executable to a directory in your PATH (e.g., /usr/local/bin/)
 sudo mv plink /usr/local/bin/
 
-#create files from our filtered vcf
+#create files from filtered vcf
 plink --vcf filtered_chr1.vcf.gz --make-bed --out filteredplinkfile --allow-extra-chr
 
 #linux code for admixture to create .P and .Q files:
@@ -54,7 +54,7 @@ output_tsv_path = 'output_admixture_results.tsv'
 # Save the DataFrame to a TSV file
 admixture_data.to_csv(output_tsv_path, sep='\t', index=False, header=False)
 
-# Replace 'file1.tsv' and 'file2.tsv' with the actual file paths
+# Specify file paths
 file1_path = 'sample_pop.tsv'
 file2_path = 'output_admixture_results.tsv'
 
